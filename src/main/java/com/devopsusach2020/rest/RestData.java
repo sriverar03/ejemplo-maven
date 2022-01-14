@@ -19,21 +19,21 @@ import com.google.gson.Gson;
 @RestController
 @RequestMapping(path = "/rest/mscovid")
 public class RestData {
-	
+	//inicio class
 	private final static Logger LOGGER = Logger.getLogger("devops.subnivel.Control");
 
-	
+	// Obtener pais
 	@GetMapping(path = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Pais getData(@RequestParam(name = "msg") String message){
 		
 		LOGGER.log(Level.INFO, "Proceso exitoso de prueba");
-		
+		// instancia Model Pais
 		Pais response = new Pais();
 		response.setMensaje("Mensaje Recibido: " + message);
 		return response;
 	}
 	
-	
+	// Obtener Total de paises
 	@GetMapping(path = "/estadoPais", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Pais getTotalPais(@RequestParam(name = "pais") String message){
 		RestTemplate restTemplate = new RestTemplate();
@@ -48,6 +48,7 @@ public class RestData {
 		Gson gson = new Gson();
         Pais[] estados = gson.fromJson(call.getBody().toLowerCase(), Pais[].class);
 
+	//obtener los estado	
         for(Pais estado : estados) {
         	response.setDate(estado.getDate());
         	response.setActive(estado.getActive());
@@ -65,7 +66,7 @@ public class RestData {
 		return response;		
 	}
 	
-
+	// total mudial
 	@GetMapping(path = "/estadoMundial", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Mundial getTotalMundial(){
 		
